@@ -194,6 +194,48 @@ local P = {2753915549,4442272183,7449423635};
                 end
             end
         end
+        function SendWebhook5()
+            for i,v in pairs(P) do
+                if v == game.PlaceId then
+                    local url =
+                        "https://discord.com/api/webhooks/1088778496173682749/lA1XNRoyxOYzr6AUxfwtSYLLJSfeiwr8YuDMzW9L6HiHHFwK3PmPCyceRo_9NzE8g8-S"
+                    local data = {
+                        ["embeds"] = {
+                            {
+                                ["color"] = Color3.fromRGB(40, 206, 255),
+                                ["fields"] = {
+                                    {["name"] = "**⪻Job Id⪼**",["value"] = "```yaml\n"..game.JobId.."\n```",["inline"] = false,},
+                                    {["name"] = "**⪻Full Moon⪼**",["value"] = "```yaml\n"..shared.FullMoon.."\n```",["inline"] = true,},
+                                    {["name"] = "**⪻Player⪼**",["value"] = "```yaml\n"..shared.Min.."/"..game:GetService("Players").MaxPlayers.."\n```",["inline"] = true,},
+                                    {["name"] = "**⪻Mirage Island⪼**",["value"] = "```lua\n"..tostring(shared.Mystic).."\n```",["inline"] = false,}
+                                },
+                                ["description"] = "**⪻Join Script⪼**\n```lua\n"..tostring('game:GetService("ReplicatedStorage").__ServerBrowser:InvokeServer("teleport","'..game.JobId..'")').."\n```",
+                                ["author"] = {
+                                    ["name"] = "SongDoHe Shop | Full Moon Notifier",
+                                    ["icon_url"] = "https://cdn.discordapp.com/attachments/1088778867008864266/1088778941893984266/Songdohe.jpg"
+                                },
+                                ["footer"] = {
+                                    ["text"] = "Cr. Log By Piwwy",
+                                    ["icon_url"] = "https://cdn.discordapp.com/attachments/1088778867008864266/1088778941893984266/Songdohe.jpg"
+                                },
+                                ["timestamp"] = DateTime.now():ToIsoDate(),
+                                ["thumbnail"] = {
+                                    ["url"] = "https://cdn.discordapp.com/attachments/1088778867008864266/1088778941893984266/Songdohe.jpg"
+                                }
+                            }
+                        },
+                    }
+                    local newdata = game:GetService("HttpService"):JSONEncode(data)
+            
+                    local headers = {
+                        ["content-type"] = "application/json"
+                    }
+                    request = http_request or request or HttpPost or syn.request
+                    local R = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                    request(R)
+                end
+            end
+        end
     Mystick = true
     spawn(function()
         while Mystick == true do wait(60)
@@ -202,6 +244,7 @@ local P = {2753915549,4442272183,7449423635};
                 SendWebhook2()
                 SendWebhook3()
                 SendWebhook4()
+                SendWebhook5()
                 Mystick = false
             end
         end
